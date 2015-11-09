@@ -89,6 +89,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Videogame\videogame.cpp" />
     <ClCompile Include="Enemies\BossEnemy.cpp" />
     <ClCompile Include="Enemies\EnemyManager.cpp" />
     <ClCompile Include="Enemies\FixedEnemy.cpp" />
