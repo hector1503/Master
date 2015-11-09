@@ -26,3 +26,11 @@
 *.exe
 *.out
 *.app
+
+*.tlog
+
+bin/Intermediate
+Test/Debug
+Videogame/Debug
+Test/Release
+Videogame/Release
