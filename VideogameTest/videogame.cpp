@@ -1,6 +1,7 @@
 #include <Windows.h>
 
 #include <d3d11.h>
+#include "ContextManager.h"
 //#include <d3dx11.h>
 
 #ifdef NDEBUG
@@ -18,47 +19,7 @@
 const int WIDTH_APPLICATION = 800;
 const int HEIGHT_APPLICATION = 600;
 
-HRESULT CrearContexto(HWND hWnd, int WIDTH_APPLICATION, int HEIGHT_APPLICATION){
-	// Tendremos que crear y rellenar una estructura de este tipo
-	DXGI_SWAP_CHAIN_DESC desc;
-	ZeroMemory(&desc, sizeof(desc));
-	// o
-	//DXGI_SWAP_CHAIN_DESC desc = {};
-	desc.BufferCount = 1;
-	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	desc.Windowed = TRUE;
-	// TODO:
-	desc.BufferDesc.Width = WIDTH_APPLICATION;
-	desc.BufferDesc.Height = HEIGHT_APPLICATION;
-	desc.BufferDesc.RefreshRate.Numerator = 1;
-	desc.BufferDesc.RefreshRate.Denominator = 60;
-	desc.OutputWindow = hWnd;
-	desc.SampleDesc.Count = 1;
-	desc.SampleDesc.Quality = 0;
-	//desc. ????
 
-	// Que DirectX queremos
-	D3D_FEATURE_LEVEL featureLevels[] =
-	{
-		
-		D3D_FEATURE_LEVEL_11_0,
-		//D3D_FEATURE_LEVEL_10_1,
-		//D3D_FEATURE_LEVEL_10_0,
-	};
-	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
-
-
-	ID3D11Device *l_D3DDevice=0; // esta clase, el device, nos sirve para crear objetos de DirectX
-	ID3D11DeviceContext *l_DeviceContext=0; // el contexto nos va a servir para usar objetos de DirectX
-	IDXGISwapChain *l_SwapChain=0; // la cadena de swap
-
-	if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, featureLevels, numFeatureLevels, D3D11_SDK_VERSION, &desc, &l_SwapChain, &l_D3DDevice, NULL, &l_DeviceContext)))
-	{
-		return S_FALSE;
-	}
-	return S_OK;
-}
 
 //-----------------------------------------------------------------------------
 // Name: MsgProc()
@@ -97,6 +58,8 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 //-----------------------------------------------------------------------
 int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdLine, int _nCmdShow)
 {
+	CContextManager *l_ContextManager = new CContextManager;
+	
   // Register the window class
   WNDCLASSEX wc = {	sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, APPLICATION_NAME, NULL };
 
@@ -109,11 +72,11 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
   // Create the application's window
   HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, 100, 100, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, wc.hInstance, NULL );
 
-  HRESULT Contexto = CrearContexto(hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION);//AQUI
+  HRESULT Contexto = l_ContextManager->CrearContexto(hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION);//AQUI
   // Añadir aquí el Init de la applicacioón
 
   ShowWindow( hWnd, SW_SHOWDEFAULT );
-  //CreateBackBuffer( hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION );
+  l_ContextManager->CreateRenderTarget();
   UpdateWindow( hWnd );
   MSG msg;
   ZeroMemory( &msg, sizeof(msg) );
@@ -131,6 +94,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
     else
     {
        // Main loop: Añadir aquí el Update y Render de la aplicación principal
+		l_ContextManager->Draw(WIDTH_APPLICATION, HEIGHT_APPLICATION);
     }
   }
   UnregisterClass( APPLICATION_NAME, wc.hInstance );
