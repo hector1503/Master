@@ -2,6 +2,8 @@
 
 #include <d3d11.h>
 #include "ContextManager.h"
+#include "DebugRender.h"
+#include "Application.h"
 //#include <d3dx11.h>
 
 #ifdef NDEBUG
@@ -72,11 +74,20 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
   // Create the application's window
   HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, 100, 100, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, wc.hInstance, NULL );
 
-  HRESULT Contexto = l_ContextManager->CrearContexto(hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION);//AQUI
+  //HRESULT Contexto = l_ContextManager->CrearContexto(hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION);//AQUI
   // Añadir aquí el Init de la applicacioón
+  CContextManager context;
+
+  context.CreateContext(hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION);
 
   ShowWindow( hWnd, SW_SHOWDEFAULT );
-  l_ContextManager->CreateRenderTarget();
+
+  context.CreateBackBuffer(hWnd, WIDTH_APPLICATION, HEIGHT_APPLICATION);
+  context.InitStates();
+  CDebugRender debugRender(context.GetDevice());
+
+  CApplication application(&debugRender, &context);
+  //l_ContextManager->CreateRenderTarget();
   UpdateWindow( hWnd );
   MSG msg;
   ZeroMemory( &msg, sizeof(msg) );
@@ -94,7 +105,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
     else
     {
        // Main loop: Añadir aquí el Update y Render de la aplicación principal
-		l_ContextManager->Draw(WIDTH_APPLICATION, HEIGHT_APPLICATION);
+//		l_ContextManager->Draw(WIDTH_APPLICATION, HEIGHT_APPLICATION);
+		application.Update(200/60.f);
+		application.Render();
     }
   }
   UnregisterClass( APPLICATION_NAME, wc.hInstance );
