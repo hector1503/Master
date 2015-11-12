@@ -19,6 +19,25 @@ public:
 		RS_COUNT
 	};
 
+	/*enum EDepthStencilState
+	//https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.stenciloperation.aspx#Keep
+	{
+		RS_WIREFRAME,
+		RS_SOLID,
+
+		DSS_COUNT
+	};
+
+	enum EBlendState 
+	//https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.blendstate_members.aspx
+	//https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.blend.aspx#Blend.One
+	{
+		RS_WIREFRAME,
+		RS_SOLID,
+
+		BS_COUNT
+	};*/
+
 public:
 	CContextManager();
 	~CContextManager();
@@ -58,7 +77,7 @@ private:
 
 
 	ID3D11RasterizerState*	m_RS[RS_COUNT];
-	// TODO ID3D11DepthStencilState
-	// TODO ID3D11BlendState
+	//ID3D11DepthStencilState* m_DSS[DSS_COUNT]
+	//ID3D11BlendState* m_BS[BS_COUNT];
 };
 

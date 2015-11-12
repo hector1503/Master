@@ -60,6 +60,8 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 //-----------------------------------------------------------------------
 int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdLine, int _nCmdShow)
 {
+	DWORD m_PreviousTime = 0;
+	float m_ElapsedTime = 0;
 	CContextManager *l_ContextManager = new CContextManager;
 	
   // Register the window class
@@ -94,6 +96,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 
   // Añadir en el while la condición de salida del programa de la aplicación
 
+
   while( msg.message != WM_QUIT )
   {
 	//Mira en la cola de mensajes si hay uno para ti. Si hay realiza la accion de 1 mensaje cada vez. Si no hay ejecuta el juego.
@@ -106,7 +109,12 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
     {
        // Main loop: Añadir aquí el Update y Render de la aplicación principal
 //		l_ContextManager->Draw(WIDTH_APPLICATION, HEIGHT_APPLICATION);
-		application.Update(200/60.f);
+		// TODO
+
+		DWORD l_CurrentTime = timeGetTime();
+		m_ElapsedTime = (float)(l_CurrentTime - m_PreviousTime)*0.001f;
+		m_PreviousTime = l_CurrentTime;
+		application.Update(m_ElapsedTime);
 		application.Render();
     }
   }

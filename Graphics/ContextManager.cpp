@@ -6,6 +6,7 @@
 
 #include "Math\Matrix44.h"
 
+
 #include "DebugRender.h"
 
 #pragma comment(lib,"d3d11.lib")
@@ -270,13 +271,14 @@ void CContextManager::InitRasterizedStates()
 	}
 
 	{
-		D3D11_RASTERIZER_DESC l_WireframeDesc;
-		ZeroMemory(&l_WireframeDesc, sizeof(D3D11_RASTERIZER_DESC));
+		D3D11_RASTERIZER_DESC l_SolidDesc;
+		ZeroMemory(&l_SolidDesc, sizeof(D3D11_RASTERIZER_DESC));
+		l_SolidDesc.FillMode = D3D11_FILL_SOLID;
+		l_SolidDesc.CullMode = D3D11_CULL_NONE;
+		l_SolidDesc.FrontCounterClockwise = true;
 
-		// TODO solid state
-
-		//HRESULT l_HR = m_D3DDevice->CreateRasterizerState(&l_WireframeDesc, &m_RS[RS_SOLID]);
-		//assert(l_HR == S_OK);
+		HRESULT l_HR = m_D3DDevice->CreateRasterizerState(&l_SolidDesc, &m_RS[RS_SOLID]);
+		assert(l_HR == S_OK);
 	}
 }
 

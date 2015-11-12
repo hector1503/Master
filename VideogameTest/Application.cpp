@@ -21,13 +21,7 @@ CApplication::~CApplication()
 
 void CApplication::Update(float _ElapsedTime)
 {
-	// TODO
-
-	// DWORD l_CurrentTime = timeGetTime();
-	// m_ElapsedTime = (float)(l_CurrentTime - m_PreviousTime)*0.001f;
-	// m_PreviousTime = l_CurrentTime;
-	
-	m_WorldRotation += .00013f*_ElapsedTime;
+	m_WorldRotation += .13f*_ElapsedTime;
 	while (m_WorldRotation > FLOAT_PI_VALUE * 2)
 	{
 		m_WorldRotation -= FLOAT_PI_VALUE * 2;
@@ -71,7 +65,7 @@ void CApplication::Render()
 	m_ContextManager->SetDebugSize(5);
 	m_ContextManager->SetBaseColor(CColor(1, 1, 1, 1));
 
-	m_ContextManager->Draw(m_DebugRender->GetSimpleCube(), CContextManager::RS_WIREFRAME);
+	m_ContextManager->Draw(m_DebugRender->GetSimpleCube(), CContextManager::RS_SOLID);
 
 
 	m_ContextManager->EndRender();
