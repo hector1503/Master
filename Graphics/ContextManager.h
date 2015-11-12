@@ -10,6 +10,8 @@ class CRenderableVertexs;
 class CContextManager
 {
 public:
+	int m_Width;
+	int m_Height;
 
 	enum ERasterizedState
 	{
@@ -52,6 +54,8 @@ public:
 	void BeginRender();
 	void EndRender();
 	void Draw(CRenderableVertexs* _VerticesToRender, ERasterizedState _RS);
+	void CContextManager::Resize(HWND hWnd, unsigned int Width, unsigned int Height);
+	float CContextManager::GetAspectRatio() const {return (float)m_Width/(float)m_Height;};
 
 	ID3D11Device* GetDevice() const { return m_D3DDevice; }
 	ID3D11DeviceContext* GetDeviceContext() const { return m_DeviceContext; }
