@@ -5,6 +5,7 @@
 #include "InputManagerImplementation.h"
 #include "DebugRender.h"
 #include "Application.h"
+#include "SphericalCameraController.h"
 //#include <d3dx11.h>
 
 #ifdef NDEBUG
@@ -74,6 +75,7 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdLine, int _nCmdShow)
 {
 	CInputManagerImplementation l_InputManager;
+	CSphericalCameraController m_Camera;
 	DWORD m_PreviousTime = 0;
 	float m_ElapsedTime = 0;
 	

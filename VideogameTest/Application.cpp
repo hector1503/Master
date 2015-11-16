@@ -3,8 +3,11 @@
 #include "Math\Matrix44.h"
 #include "Math\Vector4.h"
 
+
 #include "ContextManager.h"
+#include "InputManager.h"
 #include "DebugRender.h"
+
 
 CApplication::CApplication(CDebugRender *_DebugRender, CContextManager *_ContextManager)
 	: m_DebugRender(_DebugRender)
@@ -21,11 +24,31 @@ CApplication::~CApplication()
 
 void CApplication::Update(float _ElapsedTime)
 {
-	m_WorldRotation += .13f*_ElapsedTime;
+	/*m_WorldRotation += .13f*_ElapsedTime;
 	while (m_WorldRotation > FLOAT_PI_VALUE * 2)
 	{
 		m_WorldRotation -= FLOAT_PI_VALUE * 2;
+	}*/
+	Vect3f cameraMovement(0,0,0);
+
+	if (CInputManager::GetInputManager()->IsActionActive("MOVE_LEFT"))
+	{
+		cameraMovement.x += 10.0f * _ElapsedTime;
 	}
+	if (CInputManager::GetInputManager()->IsActionActive("MOVE_RIGHT"))
+	{
+		cameraMovement.x -= 10.0f * _ElapsedTime;
+	}
+	if (CInputManager::GetInputManager()->IsActionActive("MOVE_UP"))
+	{
+		cameraMovement.y += 10.0f * _ElapsedTime;
+	}
+	if (CInputManager::GetInputManager()->IsActionActive("MOVE_DOWN"))
+	{
+		cameraMovement.y -= 10.0f * _ElapsedTime;
+	}
+
+	m_Camera.Update(_ElapsedTime, cameraMovement);
 }
 
 void CApplication::Render()
@@ -43,6 +66,8 @@ void CApplication::Render()
 	camera.SetUp(Vect3f(0, 1, 0));
 
 	camera.SetMatrixs();
+
+	m_Camera.SetCamera(&camera);
 
 	Mat44f world;
 

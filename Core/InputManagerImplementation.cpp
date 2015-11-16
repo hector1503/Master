@@ -6,6 +6,10 @@
 
 void CInputManagerImplementation::LoadCommandsFromFile(const std::string& path)
 {
+	
+	memset(&m_KeysCurrent, 0, 256 * sizeof(bool));
+	memset(&m_KeysPrevious, 0, 256 * sizeof(bool));
+
 	m_Actions.clear();
 
 	//*
