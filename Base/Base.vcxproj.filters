@@ -32,7 +32,10 @@
     <ClInclude Include="Utils\Types.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Named.h">
+    <ClInclude Include="Utils\Named.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\TemplatedMapManager.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -57,10 +60,10 @@
     <ClCompile Include="XML\XMLTreeNode.cpp">
       <Filter>XML</Filter>
     </ClCompile>
-    <ClCompile Include="Named.cpp">
+    <ClCompile Include="Utils\Named.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="MapManager.cpp">
+    <ClCompile Include="TemplateVectorMapManager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
