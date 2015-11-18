@@ -10,52 +10,51 @@ class CRenderableVertexs;
 class CContextManager
 {
 public:
-	int m_Width;
-	int m_Height;
 
 	enum ERasterizedState
 	{
 		RS_WIREFRAME,
 		RS_SOLID,
+		// TODO crear un modo que haga culling de la cara frontal y otra de la cara trasera
 
 		RS_COUNT
 	};
 
-	/*enum EDepthStencilState
-	//https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.stenciloperation.aspx#Keep
+	enum EDepthStencilStates
 	{
-		RS_WIREFRAME,
-		RS_SOLID,
+		DSS_DEPTH_ON,
+		DSS_OFF,
+		// TODO: Crear un modo que haga el depth test, pero no escriba su posición
 
 		DSS_COUNT
 	};
 
-	enum EBlendState 
-	//https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.blendstate_members.aspx
-	//https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.blend.aspx#Blend.One
+	enum EBlendStates
 	{
-		RS_WIREFRAME,
-		RS_SOLID,
-
-		BS_COUNT
-	};*/
+		BLEND_SOLID,
+		BLEND_CLASSIC,
+		BLEND_PREMULT,
+		
+		BLEND_COUNT
+	};
 
 public:
 	CContextManager();
 	~CContextManager();
 
-	LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	void Dispose();
+
+	void Resize(HWND hWnd, unsigned int Width, unsigned int Height);
 
 	HRESULT CreateContext(HWND hWnd, int Width, int Height);
 	HRESULT CreateBackBuffer(HWND hWnd, int Width, int Height);
 	void InitStates();
 
+	float GetAspectRatio() const { return (float)m_Width / (float)m_Height; }
 
-	void BeginRender();
+	void BeginRender(CColor backgroundColor = CColor(.2f, .1f, .4f));
 	void EndRender();
-	void Draw(CRenderableVertexs* _VerticesToRender, ERasterizedState _RS);
-	void CContextManager::Resize(HWND hWnd, unsigned int Width, unsigned int Height);
-	float CContextManager::GetAspectRatio() const {return (float)m_Width/(float)m_Height;};
+	void Draw(CRenderableVertexs* _VerticesToRender, ERasterizedState _RS = RS_SOLID, EDepthStencilStates _DSS = DSS_DEPTH_ON, EBlendStates _BS = BLEND_SOLID);
 
 	ID3D11Device* GetDevice() const { return m_D3DDevice; }
 	ID3D11DeviceContext* GetDeviceContext() const { return m_DeviceContext; }
@@ -68,10 +67,13 @@ public:
 
 private:
 
-	void InitRasterizedStates();
+	void InitRasterizerStates();
+	void InitDepthStencilStates();
+	void InitBlendStates();
 
 	ID3D11Device*			m_D3DDevice;
 	ID3D11DeviceContext*	m_DeviceContext;
+	ID3D11Debug*			m_D3DDebug;
 	IDXGISwapChain*			m_SwapChain;
 	ID3D11RenderTargetView*	m_RenderTargetView;
 	ID3D11Texture2D*		m_DepthStencil;
@@ -79,9 +81,10 @@ private:
 
 	CEffectParameters m_Parameters;
 
+	int m_Width, m_Height;
 
-	ID3D11RasterizerState*	m_RS[RS_COUNT];
-	//ID3D11DepthStencilState* m_DSS[DSS_COUNT]
-	//ID3D11BlendState* m_BS[BS_COUNT];
+	ID3D11RasterizerState*	m_RasterizerSates[RS_COUNT];
+	ID3D11DepthStencilState * m_DepthStencilStates[DSS_COUNT];
+	ID3D11BlendState* m_BlendStates[BLEND_COUNT];
 };
 

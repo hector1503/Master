@@ -176,9 +176,9 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
 
-	ID3D11Device *l_D3DDevice; // esta clase, el device, nos sirve para crear objetos de DirectX
-	ID3D11DeviceContext *l_DeviceContext; // el contexto nos va a servir para usar objetos de DirectX
-	IDXGISwapChain *l_SwapChain; // la cadena de swap
+	ID3D11Device *l_D3DDevice=0; // esta clase, el device, nos sirve para crear objetos de DirectX
+	ID3D11DeviceContext *l_DeviceContext=0; // el contexto nos va a servir para usar objetos de DirectX
+	IDXGISwapChain *l_SwapChain=0; // la cadena de swap
 
 	if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, featureLevels, numFeatureLevels, D3D11_SDK_VERSION, &desc, &l_SwapChain, &l_D3DDevice, NULL, &l_DeviceContext)))
 	{

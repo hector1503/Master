@@ -1,5 +1,25 @@
 <input>
 	<action name="MOVE_UP" type="KEYBOARD" mode="WHILE_PRESSED" key="W" />
+	<action name="MOVE_DOWN" type="KEYBOARD" mode="WHILE_PRESSED" key="S" />
+	<action name="MOVE_RIGHT" type="KEYBOARD" mode="WHILE_PRESSED" key="D" />
+	<action name="MOVE_LEFT" type="KEYBOARD" mode="WHILE_PRESSED" key="A" />
+	<action name="MOVE_CAMERA" type="MOUSE" mode="WHILE_PRESSED" button="RIGHT" />
+	<action name="MOVE_UP" type="GAMEPAD" mode="WHILE_PRESSED" key="XINPUT_GAMEPAD_DPAD_UP" number=0/>
+	<action name="MOVE_DOWN" type="GAMEPAD" mode="WHILE_PRESSED" key="XINPUT_GAMEPAD_DPAD_DOWN" number=0/>
+	<action name="MOVE_RIGHT" type="GAMEPAD" mode="WHILE_PRESSED" key="XINPUT_GAMEPAD_DPAD_RIGHT" number=0/>
+	<action name="MOVE_LEFT" type="GAMEPAD" mode="WHILE_PRESSED" key="XINPUT_GAMEPAD_DPAD_LEFT" number=0/>
+	
+	
+	<axis name="X_AXIS" type="MOUSE" axis="X" scale=0.5/>
+	<axis name="Y_AXIS" type="MOUSE" axis="Y" scale=0.1/>
+	<axis name="WHEEL" type="MOUSE" axis="WHEEL" scale=0.5/>
+	<axis name="LEFT_X" type="GAMEPAD" axis="LEFT_X" number=0/>
+	<axis name="LEFT_Y" type="GAMEPAD" axis="LEFT_Y" number=0/>
+	<axis name="RIGHT_X" type="GAMEPAD" axis="RIGHT_X" number=0/>
+	<axis name="RIGHT_Y" type="GAMEPAD" axis="RIGHT_Y" number=0/>
+	<axis name="LEFT_TRIGGER" type="GAMEPAD" axis="LEFT_TRIGGER" number=0/>
+	<axis name="RIGHT_TRIGGER" type="GAMEPAD" axis="RIGHT_TRIGGER" number=0/>
+
 	<!--
 		Añadir el resto de acciones
 	-->

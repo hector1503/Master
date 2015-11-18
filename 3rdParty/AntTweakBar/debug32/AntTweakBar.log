@@ -1,0 +1,84 @@
+﻿Compilación iniciada a las 18/11/2015 14:53:30.
+     1>Proyecto "C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\AntTweakBar.vcxproj" en el nodo 3 (build destinos).
+       El archivo del proyecto contiene ToolsVersion="12.0", que esta versión de MSBuild no admite. Se tratará el proyecto como si contuviera ToolsVersion="4.0".
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
+     1>InitializeBuildStatus:
+         Se creará "debug32\AntTweakBar.unsuccessfulbuild" porque se especificó "AlwaysCreate".
+       PreBuildEvent:
+         fxc /Od /Zi /T vs_4_0_level_9_1 /E LineRectVS /Fh debug32\TwDirect3D11_LineRectVS.h TwDirect3D11.hlsl
+         fxc /Od /Zi /T vs_4_0_level_9_1 /E LineRectCstColorVS /Fh debug32\TwDirect3D11_LineRectCstColorVS.h TwDirect3D11.hlsl
+         fxc /Od /Zi /T ps_4_0_level_9_1 /E LineRectPS /Fh debug32\TwDirect3D11_LineRectPS.h TwDirect3D11.hlsl
+         fxc /Od /Zi /T vs_4_0_level_9_1 /E TextVS /Fh debug32\TwDirect3D11_TextVS.h TwDirect3D11.hlsl
+         fxc /Od /Zi /T vs_4_0_level_9_1 /E TextCstColorVS /Fh debug32\TwDirect3D11_TextCstColorVS.h TwDirect3D11.hlsl
+         fxc /Od /Zi /T ps_4_0_level_9_1 /E TextPS /Fh debug32\TwDirect3D11_TextPS.h TwDirect3D11.hlsl
+         
+         :VCEnd
+         Microsoft (R) Direct3D Shader Compiler 9.29.952.3111
+         Copyright (C) Microsoft Corporation 2002-2009. All rights reserved.
+         
+         compilation succeeded; see C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\debug32\TwDirect3D11_LineRectVS.h
+         Microsoft (R) Direct3D Shader Compiler 9.29.952.3111
+         Copyright (C) Microsoft Corporation 2002-2009. All rights reserved.
+         
+         compilation succeeded; see C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\debug32\TwDirect3D11_LineRectCstColorVS.h
+         Microsoft (R) Direct3D Shader Compiler 9.29.952.3111
+         Copyright (C) Microsoft Corporation 2002-2009. All rights reserved.
+         
+         compilation succeeded; see C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\debug32\TwDirect3D11_LineRectPS.h
+         Microsoft (R) Direct3D Shader Compiler 9.29.952.3111
+         Copyright (C) Microsoft Corporation 2002-2009. All rights reserved.
+         
+         compilation succeeded; see C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\debug32\TwDirect3D11_TextVS.h
+         Microsoft (R) Direct3D Shader Compiler 9.29.952.3111
+         Copyright (C) Microsoft Corporation 2002-2009. All rights reserved.
+         
+         compilation succeeded; see C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\debug32\TwDirect3D11_TextCstColorVS.h
+         Microsoft (R) Direct3D Shader Compiler 9.29.952.3111
+         Copyright (C) Microsoft Corporation 2002-2009. All rights reserved.
+         
+         compilation succeeded; see C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\debug32\TwDirect3D11_TextPS.h
+       ClCompile:
+         Todas las salidas están actualizadas.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\include" /ZI /nologo /W4 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D TW_EXPORTS /D _VC80_UPGRADE=0x0700 /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"TwPrecomp.h" /Fp"debug32\AntTweakBar.pch" /Fo"debug32\\" /Fd"debug32\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt TwDirect3D11.cpp
+         TwDirect3D11.cpp
+         Todas las salidas están actualizadas.
+         Todas las salidas están actualizadas.
+       ResourceCompile:
+         Todas las salidas están actualizadas.
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"debug32\AntTweakBarDebug.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.pdb" /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.lib" /MACHINE:X86 /DLL debug32\AntTweakBar.res
+         debug32\LoadOGL.obj
+         debug32\LoadOGLCore.obj
+         debug32\TwBar.obj
+         debug32\TwColors.obj
+         debug32\TwDirect3D10.obj
+         debug32\TwDirect3D11.obj
+         debug32\TwDirect3D9.obj
+         debug32\TwEventGLFW.obj
+         debug32\TwEventGLUT.obj
+         debug32\TwEventSDL.obj
+         debug32\TwEventSDL12.obj
+         debug32\TwEventSDL13.obj
+         debug32\TwEventSFML.obj
+         debug32\TwEventWin.obj
+         debug32\TwFonts.obj
+         debug32\TwMgr.obj
+         debug32\TwOpenGL.obj
+         debug32\TwOpenGLCore.obj
+         debug32\TwPrecomp.obj
+     1>LoadOGL.obj : warning LNK4075: se omite '/EDITANDCONTINUE' debido a la especificación '/INCREMENTAL:NO'
+            Creando biblioteca C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.lib y objeto C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.exp
+         AntTweakBar.vcxproj -> C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Hector\Github Project\Master\bin\lib\AntTweakBarDebug.dll;#2" /manifest debug32\AntTweakBarDebug.dll.intermediate.manifest
+       PostBuildEvent:
+         if exist ..\examples\debug32  xcopy /y /f ..\lib\debug\AntTweakBar.dll ..\examples\debug32\.
+         :VCEnd
+       FinalizeBuildStatus:
+         Se eliminará el archivo "debug32\AntTweakBar.unsuccessfulbuild".
+         Aplicando tarea Touch a "debug32\AntTweakBar.lastbuildstate".
+     1>Compilación del proyecto terminada "C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\AntTweakBar.vcxproj" (build destinos).
+
+Compilación correcta.
+
+Tiempo transcurrido 00:00:02.58
