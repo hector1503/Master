@@ -1,4 +1,4 @@
-﻿Compilación iniciada a las 18/11/2015 20:31:18.
+﻿Compilación iniciada a las 22/11/2015 21:14:50.
      1>Proyecto "C:\Users\Hector\Github Project\Master\3rdParty\AntTweakBar\AntTweakBar.vcxproj" en el nodo 3 (build destinos).
        El archivo del proyecto contiene ToolsVersion="12.0", que esta versión de MSBuild no admite. Se tratará el proyecto como si contuviera ToolsVersion="4.0".
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
@@ -81,4 +81,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:02.12
+Tiempo transcurrido 00:00:02.11

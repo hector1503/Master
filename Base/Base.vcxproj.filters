@@ -38,6 +38,9 @@
     <ClInclude Include="Utils\TemplatedMapManager.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="TemplateVectorMapManager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -61,9 +64,6 @@
       <Filter>XML</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Named.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="TemplateVectorMapManager.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
