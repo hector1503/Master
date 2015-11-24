@@ -38,7 +38,7 @@
     <ClInclude Include="Utils\TemplatedMapManager.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="TemplateVectorMapManager.h">
+    <ClInclude Include="Utils\TemplateVectorMapManager.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

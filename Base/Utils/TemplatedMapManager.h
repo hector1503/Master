@@ -11,8 +11,7 @@ protected:
 public:
 	virtual T * GetResource(const std::string &Name)
 	{
-		std::map<std::string, T*>::iterator it;
-		it = m_Resources.find(Name);
+		std::map<std::string, T*>::iterator it = m_Resources.find(Name);
 
 		if (it != m_Resources.end())
 		{
@@ -26,22 +25,21 @@ public:
 
 	virtual bool AddResource(const std::string &Name, T *Resource)
 	{
-		std::map<std::string, T*>::iterator it;
-		it = m_Resources.find(Name);
+		std::map<std::string, T*>::iterator it = m_Resources.find(Name);
 
 		if (it == m_Resources.end())
 		{
 			m_Resources[Name] = Resource;
-			return 1;
+			return true;
 		}
 		else
 		{
-			return NULL;
+			return false;
 		}
 	}
 	virtual void Destroy()
 	{
-		for (std::map<std::string, T*>::iterator it; it != m_Resources.end(); it++)
+		for (std::map<std::string, T*>::iterator it = m_Resources.begin(); it != m_Resources.end(); it++)
 		{
 			delete it->second;
 		}

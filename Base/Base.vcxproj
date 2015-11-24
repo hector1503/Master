@@ -19,10 +19,10 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
-    <ClInclude Include="TemplateVectorMapManager.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Utils\TemplatedMapManager.h" />
     <ClInclude Include="Utils\Named.h" />
+    <ClInclude Include="Utils\TemplateVectorMapManager.h" />
     <ClInclude Include="Utils\Types.h" />
     <ClInclude Include="XML\XMLTreeNode.h" />
   </ItemGroup>
