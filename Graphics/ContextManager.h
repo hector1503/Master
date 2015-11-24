@@ -15,7 +15,8 @@ public:
 	{
 		RS_WIREFRAME,
 		RS_SOLID,
-		// TODO crear un modo que haga culling de la cara frontal y otra de la cara trasera
+		RS_CULL_FRONT,
+		RS_CULL_BACK,
 
 		RS_COUNT
 	};
@@ -24,7 +25,7 @@ public:
 	{
 		DSS_DEPTH_ON,
 		DSS_OFF,
-		// TODO: Crear un modo que haga el depth test, pero no escriba su posición
+		DSS_DEPTH_HIDE,
 
 		DSS_COUNT
 	};
@@ -37,6 +38,7 @@ public:
 		
 		BLEND_COUNT
 	};
+
 
 public:
 	CContextManager();
@@ -54,7 +56,7 @@ public:
 
 	void BeginRender(CColor backgroundColor = CColor(.2f, .1f, .4f));
 	void EndRender();
-	void Draw(CRenderableVertexs* _VerticesToRender, ERasterizedState _RS = RS_SOLID, EDepthStencilStates _DSS = DSS_DEPTH_ON, EBlendStates _BS = BLEND_SOLID);
+	void Draw(const CRenderableVertexs* _VerticesToRender, ERasterizedState _RS = RS_SOLID, EDepthStencilStates _DSS = DSS_DEPTH_ON, EBlendStates _BS = BLEND_SOLID);
 
 	ID3D11Device* GetDevice() const { return m_D3DDevice; }
 	ID3D11DeviceContext* GetDeviceContext() const { return m_DeviceContext; }

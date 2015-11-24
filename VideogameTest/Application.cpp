@@ -62,6 +62,13 @@ CApplication::~CApplication()
 	CDebugHelper::GetDebugHelper()->Log("CApplication::~CApplication");
 }
 
+void CApplication::Init()
+{
+	m_MaterialManager.AddMaterials("Data\\materials.xml");
+
+	m_Cube.AddSubmesh(m_DebugRender->GetSimpleCube(), "solid material", m_DebugRender->GetSimpleCubeBSRadi(), m_DebugRender->GetSimpleCubeBBMin(), m_DebugRender->GetSimpleCubeBBMax());
+}
+
 
 void CApplication::SwitchCamera()
 {
@@ -74,6 +81,25 @@ void CApplication::SwitchCamera()
 
 void CApplication::Update(float _ElapsedTime)
 {	
+
+	CCamera camera;
+	m_FPSCamera.SetCamera(&camera);
+	camera.SetFOV(1.047f);
+	camera.SetAspectRatio(m_ContextManager->GetAspectRatio());
+	camera.SetZNear(0.1f);
+	camera.SetZFar(100.f);
+	camera.SetMatrixs();
+	m_RenderManager.SetCurrentCamera(camera);
+
+	m_SphericalCamera.SetCamera(&camera);
+	camera.SetFOV(1.047f);
+	camera.SetAspectRatio(m_ContextManager->GetAspectRatio());
+	camera.SetZNear(0.1f);
+	camera.SetZFar(100.f);
+	camera.SetMatrixs();
+	m_RenderManager.SetDebugCamera(camera);
+
+	m_RenderManager.SetUseDebugCamera(m_CurrentCamera == 0);
 
 	switch (m_CurrentCamera)
 	{
@@ -103,38 +129,13 @@ void CApplication::Render()
 {
 	m_ContextManager->BeginRender(m_BackgroundColor);
 
-	CCamera camera;
-	camera.SetFOV(1.047f);
-	camera.SetAspectRatio(m_ContextManager->GetAspectRatio());
-	camera.SetZNear(0.1f);
-	camera.SetZFar(100.f);
+	// añadir todos los objetos que se quiere pintar
+	m_RenderManager.AddRenderableObjectToRenderList(&m_Cube);
 
-	switch (m_CurrentCamera)
-	{
-	case 0:
-		m_SphericalCamera.SetCamera(&camera);
-		break;
-	case 1:
-		m_FPSCamera.SetCamera(&camera);
-		break;
-	default:
-		m_CurrentCamera = 0;
-		break;
-	}
+	m_RenderManager.Render(m_ContextManager, &m_MaterialManager);
 
-	camera.SetMatrixs();
 
 	Mat44f world;
-
-	world.SetFromPosAndAnglesYXZ(m_CubeTransform.Position, m_CubeTransform.Yaw, m_CubeTransform.Pitch, m_CubeTransform.Roll);
-
-	m_ContextManager->SetWorldMatrix(world);
-	m_ContextManager->SetCamera(camera);
-
-	m_ContextManager->SetDebugSize(5);
-	m_ContextManager->SetBaseColor(CColor(1, 1, 1, 1));
-
-	m_ContextManager->Draw(m_DebugRender->GetSimpleCube());
 
 	world.SetIdentity();
 	m_ContextManager->SetWorldMatrix(world);
@@ -149,7 +150,7 @@ void CApplication::Render()
 	world.SetFromPos(0, 0, -10);
 	m_ContextManager->SetWorldMatrix(world);
 	m_ContextManager->Draw(m_DebugRender->GetPremultBlendTriangle(), CContextManager::RS_SOLID, CContextManager::DSS_OFF, CContextManager::BLEND_PREMULT);
-
+	
 
 	CDebugHelper::GetDebugHelper()->Render();
 

@@ -33,6 +33,15 @@ bool CRenderManager::AddRenderableObjectToRenderList(const CRenderableObject* _R
 	//}
 }
 
+
+	struct BlendedSubmesh
+	{
+	    const CRenderableVertexs* vertices;
+	    Mat44f world;
+	    const CMaterial* material;
+	    Vect3f position;
+	};
+
 void CRenderManager::Render(CContextManager* _Context, CMaterialManager* _MaterialManager)
 {
 	if (m_UseDebugCamera)
@@ -43,20 +52,10 @@ void CRenderManager::Render(CContextManager* _Context, CMaterialManager* _Materi
 	{
 		_Context->SetCamera(m_CurrentCamera);
 	}
-
-	// TODO crear un vector para objetos transparentes
-	//struct BlendedSubmesh
-	//{
-	//    const CRenderableVertexs* vertices;
-	//    Mat44f world;
-	//    const CMaterial* material;
-	//    const Vect3f& position;
-	//};
-	//std::vector<BlendedSubmesh> l_SubmeshesWithBlend;
+	std::vector<BlendedSubmesh> l_SubmeshesWithBlend;
 
 
-
-	for (int i = 0; i < m_CurrentRenderlistLength; ++i)
+	for (unsigned int i = 0; i < m_CurrentRenderlistLength; ++i)
 	{
 		const CRenderableObject* l_RenderableObject = m_RenderableObjects[i];
 		const SPositionOrientation& l_Transform = l_RenderableObject->GetTransform();
@@ -65,33 +64,52 @@ void CRenderManager::Render(CContextManager* _Context, CMaterialManager* _Materi
 		world.SetFromPosAndAnglesYXZ(l_Transform.Position, l_Transform.Yaw, l_Transform.Pitch, l_Transform.Roll);
 		_Context->SetWorldMatrix(world);
 
-		for (int j = 0; j < l_RenderableObject->GetNumSubmeshes(); ++j)
+		for (unsigned int j = 0; j < l_RenderableObject->GetNumSubmeshes(); ++j)
 		{
 			const CRenderableObject::SSubmesh& l_Submesh = l_RenderableObject->GetSubmesh(j);
 			const CMaterial* l_Material = _MaterialManager->GetMaterial(l_Submesh.material);
-			// TODO no pintar el objeto, sino añadirlo a la lista l_SubmeshesWithBlend si tiene blend
-			// l_Material->HasBlending();
-
-			l_Material->SetShaderParameters(_Context);
-			_Context->Draw(l_Submesh.vertices, l_Material->GetRasterizerState(), l_Material->GetDepthStencilState(), l_Material->GetBlendState());
+			if (!l_Material->HasBlending())
+			{
+				l_Material->SetShaderParameters(_Context);
+				_Context->Draw(l_Submesh.vertices, l_Material->GetRasterizerState(), l_Material->GetDepthStencilState(), l_Material->GetBlendState());
+			} 
+			else
+			{
+				BlendedSubmesh object = { l_Submesh.vertices, world, l_Material, world.GetPos() };
+				l_SubmeshesWithBlend.push_back(object);
+				int a=0;
+			}
 		}
 	}
 
-	// TODO: Ordenar objetos según la distáncia a la cámara
-	// NOTA: El quicksort es más rápido que el buble sort cuando la lista tiene más de ~100 objetos. NO OS MATÉIS SI NO HACE FALTA.
-	//const Vect3f& l_CameraPosition = m_CurrentCamera.GetPosition();
-	//for (int i = 0; i < l_SubmeshesWithBlend.size(); ++i)
-	//{
-	//    float l_DistanceSQ = l_SubmeshesWithBlend[i].position.SquaredLength(l_CameraPosition);
-	//}
+	const Vect3f& l_CameraPosition = m_CurrentCamera.GetPosition();
+	int swap = 0;
+	do {
+		swap = 0;
+
+		for (unsigned int j = 0; j < l_SubmeshesWithBlend.size(); ++j)
+		{
+			float l_DistanceSQ = l_SubmeshesWithBlend[j].position.SquaredLength();
+			float distance = l_CameraPosition.SquaredLength() - l_DistanceSQ;
+			
+			float l_DistanceSQ_2 = l_SubmeshesWithBlend[j+1].position.SquaredLength();
+			float distance_2 = l_CameraPosition.SquaredLength() - l_DistanceSQ_2;
+
+			if (distance_2 < distance)
+			{
+				BlendedSubmesh temp = { l_SubmeshesWithBlend[j].vertices, l_SubmeshesWithBlend[j].world, l_SubmeshesWithBlend[j].material, l_SubmeshesWithBlend[j].world.GetPos() };
+				l_SubmeshesWithBlend[j] = l_SubmeshesWithBlend[j+1];
+				l_SubmeshesWithBlend[j+1] = temp;
+				swap = 1;
+			}
+		}
+	} while(swap);
 
 	// TODO: Pintar objetos translúcidos
-	//for (int i = 0; i < l_SubmeshesWithBlend.size(); ++i)
-	//{
-	//
-	//    // TODO render
-	//
-	//}
+	for (int i = 0; i < l_SubmeshesWithBlend.size(); ++i)
+	{
+		
+	}
 
 	m_CurrentRenderlistLength = 0;
 }

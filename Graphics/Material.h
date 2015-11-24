@@ -5,7 +5,7 @@
 class CMaterial
 {
 public:
-	CMaterial(CContextManager::ERasterizerState _RasterizerState, CContextManager::EDepthStencilState _DepthStencilState, CContextManager::EBlendState _BlendState)
+	CMaterial(CContextManager::ERasterizedState _RasterizerState, CContextManager::EDepthStencilStates _DepthStencilState, CContextManager::EBlendStates _BlendState)
 		: m_RasterizerState(_RasterizerState)
 		, m_DepthStencilState(_DepthStencilState)
 		, m_BlendState(_BlendState)
@@ -37,14 +37,14 @@ public:
 		// NOTA: Si se añaden más estados aquí, modificar CMaterial::HasBlending
 	}
 
-	CContextManager::ERasterizerState GetRasterizerState() const { return m_RasterizerState; }
-	CContextManager::EDepthStencilState GetDepthStencilState() const { return m_DepthStencilState; }
-	CContextManager::EBlendState GetBlendState() const { return m_BlendState; }
+	CContextManager::ERasterizedState GetRasterizerState() const { return m_RasterizerState; }
+	CContextManager::EDepthStencilStates GetDepthStencilState() const { return m_DepthStencilState; }
+	CContextManager::EBlendStates GetBlendState() const { return m_BlendState; }
 
 private:
-	CContextManager::ERasterizerState m_RasterizerState;
-	CContextManager::EDepthStencilState m_DepthStencilState;
-	CContextManager::EBlendState m_BlendState;
+	CContextManager::ERasterizedState m_RasterizerState;
+	CContextManager::EDepthStencilStates m_DepthStencilState;
+	CContextManager::EBlendStates m_BlendState;
 
 	float m_DebugSize;
 	CColor m_BaseColor;

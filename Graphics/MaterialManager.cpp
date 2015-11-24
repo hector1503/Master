@@ -3,7 +3,7 @@
 #include "XML\XMLTreeNode.h"
 
 
-static CContextManager::ERasterizerState ParseRasterizerState(const std::string& str)
+static CContextManager::ERasterizedState ParseRasterizerState(const std::string& str)
 {
 	if (str == "WIREFRAME")
 	{
@@ -15,11 +15,11 @@ static CContextManager::ERasterizerState ParseRasterizerState(const std::string&
 	}
 	else
 	{
-		return (CContextManager::ERasterizerState)-1;
+		return (CContextManager::ERasterizedState)-1;
 	}
 };
 
-static CContextManager::EDepthStencilState ParseDepthStencilState(const std::string& str)
+static CContextManager::EDepthStencilStates ParseDepthStencilState(const std::string& str)
 {
 	if (str == "DEPTH_ON")
 	{
@@ -31,11 +31,11 @@ static CContextManager::EDepthStencilState ParseDepthStencilState(const std::str
 	}
 	else
 	{
-		return (CContextManager::EDepthStencilState) - 1;
+		return (CContextManager::EDepthStencilStates) - 1;
 	}
 };
 
-static CContextManager::EBlendState ParseBlendState(const std::string& str)
+static CContextManager::EBlendStates ParseBlendState(const std::string& str)
 {
 	if (str == "SOLID")
 	{
@@ -51,7 +51,7 @@ static CContextManager::EBlendState ParseBlendState(const std::string& str)
 	}
 	else
 	{
-		return (CContextManager::EBlendState) - 1;
+		return (CContextManager::EBlendStates) - 1;
 	}
 };
 
@@ -72,9 +72,9 @@ void CMaterialManager::AddMaterials(const std::string& path)
 				std::unordered_map<std::string, CMaterial*>::const_iterator it = m_Materials.find(name);
 				if (it != m_Materials.end()) delete it->second;
 
-				CContextManager::ERasterizerState l_RasterizerState = ParseRasterizerState(l_Material.GetPszProperty("rasterizer_state"));
-				CContextManager::EDepthStencilState l_DepthStencilState = ParseDepthStencilState(l_Material.GetPszProperty("depth_stencil_state"));
-				CContextManager::EBlendState l_BlendState = ParseBlendState(l_Material.GetPszProperty("blend_state"));
+				CContextManager::ERasterizedState l_RasterizerState = ParseRasterizerState(l_Material.GetPszProperty("rasterizer_state"));
+				CContextManager::EDepthStencilStates l_DepthStencilState = ParseDepthStencilState(l_Material.GetPszProperty("depth_stencil_state"));
+				CContextManager::EBlendStates l_BlendState = ParseBlendState(l_Material.GetPszProperty("blend_state"));
 
 				CMaterial *material = new CMaterial(l_RasterizerState, l_DepthStencilState, l_BlendState);
 
